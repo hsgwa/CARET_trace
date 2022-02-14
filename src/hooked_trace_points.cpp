@@ -50,6 +50,8 @@
 
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "tf2/buffer_core.h"
+#include "tf2_ros/buffer.h"
+#include "tf2_ros/transform_listener.h"
 
 #define SYMBOL_CONCAT_2(x, y)  x ## y
 #define SYMBOL_CONCAT_3(x, y, z)  x ## y ## z
@@ -1313,4 +1315,95 @@ tf2::TimeCacheInterfacePtr _ZNK3tf210BufferCore8getFrameEj(
   //   << " " << transform.header.stamp.sec << transform.header.stamp.nanosec << std::endl;
   return  ret;
 }
+
+
+// tf2_ros::Buffer constructor
+tf2_ros::Buffer* _ZN7tf2_ros6BufferC1ESt10shared_ptrIN6rclcpp5ClockEENSt6chrono8durationIlSt5ratioILl1ELl1000000000EEEES1_INS2_4NodeEE
+(
+    void *obj,
+    rclcpp::Clock::SharedPtr clock,
+    tf2::Duration cache_time,
+    rclcpp::Node::SharedPtr node
+)
+{
+  static void * orig_func = dlsym(RTLD_NEXT, __func__);
+  using functionT = tf2_ros::Buffer* (*)(
+    void *,
+    rclcpp::Clock::SharedPtr,
+    tf2::Duration,
+    rclcpp::Node::SharedPtr
+  );
+
+  auto ret = ((functionT) orig_func)(
+    obj,
+    clock,
+    cache_time,
+    node
+  );
+
+  std::cerr << "buffer const"  << " " << obj << " " <<
+    clock.get() <<  std::endl;
+
+  return  ret;
+}
+// _ZN7tf2_ros6BufferC2ESt10shared_ptrIN6rclcpp5ClockEENSt6chrono8durationIlSt5ratioILl1ELl1000000000EEEES1_INS2_4NodeEE
+
+rclcpp::Node* _ZN6rclcpp4NodeC1ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES8_RKNS_11NodeOptionsE
+(
+  rclcpp::Node* obj,
+  const std::string & node_name,
+  const std::string & namespace_,
+  const rclcpp::NodeOptions & options
+)
+{
+  static void * orig_func = dlsym(RTLD_NEXT, __func__);
+  using functionT = rclcpp::Node* (*)(
+  void *,
+  const std::string &,
+  const std::string &,
+  const rclcpp::NodeOptions &
+  );
+
+  auto ret = ((functionT) orig_func)(
+    obj,
+    node_name,
+    namespace_,
+    options
+  );
+
+  std::cerr << "node const"  << " " <<
+  obj << " " << obj->get_clock().get() << std::endl;
+
+  return  ret;
+}
+
+tf2_ros::TransformListener *
+_ZN7tf2_ros17TransformListenerC1ERN3tf210BufferCoreEb(
+  void * obj,
+  tf2::BufferCore & buffer,
+  bool spin_thread
+)
+{
+  static void * orig_func = dlsym(RTLD_NEXT, __func__);
+  using functionT = tf2_ros::TransformListener* (*)(
+    void * ,
+    tf2::BufferCore & ,
+    bool
+  );
+
+  auto ret = ((functionT) orig_func)(
+    obj,
+    buffer,
+    spin_thread
+  );
+
+  size_t a = sizeof(tf2_ros::BufferInterface);
+  size_t b = sizeof(tf2_ros::AsyncBufferInterface);
+  void * orig = (char*) &buffer - a - b; // アドレスを戻す。
+  std::cerr << "transformListener const"  << " " <<
+  obj << " " << orig << " " << &buffer << std::endl;
+
+  return  ret;
+}
+
 }
